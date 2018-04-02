@@ -1,0 +1,20 @@
+def check(): int = {
+    int a
+}
+
+def lest() : int = {
+    check()
+    return a+b
+}
+# ge
+/*
+Hey Test Multi Comment
+*/
+def main(): int = {
+    int a = 10, b, c
+    int b
+    input(a)
+    for (;;) {break}
+    a = c
+    print(c)
+}

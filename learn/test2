@@ -1,0 +1,6 @@
+def main(): void = {
+    int a = 3, b = 5
+    int temp = a
+    a = b
+    b = temp
+}
