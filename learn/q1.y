@@ -13,6 +13,14 @@
 %left ADD SUB
 %token MUL DIV MOD
 %token DEF MAIN
+%token IF
+%token ELSE
+%token ELSE_IF
+%token AND
+%token OR
+%token NOT
+%token TRUE
+%token FALSE
 
 %%
 start: DEF MAIN '(' param ')' ':' data_type '=' '{'block'}'
@@ -59,10 +67,11 @@ expr_stmt: function_param
     | break_stmt
     | arithmetic_stmt
     | output_stmt
+    | condition_stmt
     ;
 
 output_stmt: PRINT'(' ID ')'
-    | PRINT '(' NUM ')'
+    | PRINT '(' NUM ')'              //printing value of identifier
     ;
 
 arithmetic_stmt: ID '=' arithmectic_expression
@@ -92,6 +101,38 @@ temp_assignment: '=' arithmectic_expression
     |
     ;
 
+condition_stmt: IF '(' condition_expr ')' '{' block '}' elif_stmt else_stmt
+       ;
+
+elif_stmt: ELSE_IF '(' condition_expr ')' '{' block '}' else_stmt
+    |
+   ;
+
+else_stmt: ELSE '{' block '}'
+     |
+     ;
+
+condition_expr: condition_expr AND condition_expr      //brackets necessary
+   | condition_expr OR condition_expr
+   | NOT condition_expr
+   | TRUE
+   | FALSE
+   | comparison_statement
+   | '(' condition_expr ')'
+   ;
+
+comparison_statement: ID conditional_operator ID
+       | ID conditional_operator arithmectic_expression
+       ;
+
+conditional_operator: EQ
+              | LEQ
+              | GEQ
+              | NEQ
+              | LT
+              | GT
+              ;
+
 arithmectic_expression: arithmectic_expression operator arithmectic_expression
     | ID
     | '('arithmectic_expression')'
@@ -110,16 +151,20 @@ function_call_stmt: ID '(' param ')'
 input_stmt: INPUT'('ID')'
     ;
 
-loop_stmt: FOR '('initialize_loop';' loop_invariant ';' loop_increment ')' '{' block '}'
+loop_stmt: FOR '('initialize_loop';' loop_invariant ';' loop_increment ')' '{' block '}'  //empty parameters
     ;
 
-initialize_loop:
+initialize_loop: assignment_stmt
+    | decl_stmt
+    |
     ;
 
-loop_invariant:
+loop_invariant: comparison_statement
+    |
     ;
 
-loop_increment:
+loop_increment: ID '=' arithmectic_expression
+    |
     ;
 
 %%
