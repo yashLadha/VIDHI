@@ -1,6 +1,7 @@
 %{
     #include <stdio.h>
     #include <stdlib.h>
+    #include <string.h>
 
     extern FILE *fp;
 %}
@@ -56,8 +57,7 @@ expressions: expressions expr_stmt
     | expr_stmt
     ;
 
-expr_stmt: function_param
-    | return_stmt
+expr_stmt: return_stmt
     | input_stmt
     | loop_stmt
     | decl_stmt
@@ -133,8 +133,41 @@ conditional_operator: EQ
               | GT
               ;
 
-arithmectic_expression: arithmectic_expression operator arithmectic_expression
+arithmectic_expression: arithmectic_expression operator arithmectic_expression {
+    if ($2 == '+') {
+        printf("Addition operation received \n");
+        $$ = $1 + $3;
+        printf("Value: %d \n", (int)$$);
+    } else if ($2 == '-') {
+        printf("Subtraction received \n");
+        $$ = $1 - $3;
+        printf("Value: %d \n", (int)$$);
+    } else if ($2 == '*') {
+        printf("Mulitplication received \n");
+        $$ = $1 * $3;
+        printf("Value: %d \n", (int)$$);
+    } else if ($2 == '/') {
+        printf("Division received \n");
+        if ((int)$3 == 0) {
+            yyerror("Divide by zero, Invalid operation \n");
+        } else {
+            $$ = $1 / $3;
+            printf("Value: %d \n", (int)$$);
+        }
+    } else if ($2 == '%') {
+        printf("Mod received \n");
+        if ((int)$3 == 0) {
+            yyerror("Divide by zero, Invalid operation \n");
+        } else {
+            $$ = $1 % $3;
+            printf("Value: %d \n", (int)$$);
+        }
+    } else {
+        yyerror("Invalid operator specified \n");
+    }
+}
     | ID
+    | NUM
     | '('arithmectic_expression')'
     ;
 

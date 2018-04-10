@@ -923,32 +923,32 @@ return NEQ;
 case 27:
 YY_RULE_SETUP
 #line 31 "q1.l"
-return ADD;
+{ yylval = '+'; return ADD; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 32 "q1.l"
-return SUB;
+{ yylval = '-'; return SUB; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 33 "q1.l"
-return MUL;
+{ yylval = '*'; return MUL; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 34 "q1.l"
-return DIV;
+{ yylval = '/'; return DIV; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 35 "q1.l"
-return MOD;
+{ yylval = '%'; return MOD; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 36 "q1.l"
-return NUM;
+{ yylval = atoi(yytext); return NUM; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP

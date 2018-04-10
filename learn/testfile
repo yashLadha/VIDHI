@@ -4,7 +4,7 @@ def check(): int = {
 
 def lest() : int = {
     check()
-    return a+b
+    return 2+2
 }
 # ge
 /*
@@ -13,8 +13,8 @@ Hey Test Multi Comment
 def main(): int = {
     int a = 10, b, c
     int b
+    a = 4 / 2
     input(a)
-    for (;;) {break}
     a = c
     print(c)
 }

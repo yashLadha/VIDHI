@@ -28,12 +28,12 @@ elif return ELSE_IF;
 "<" return LT;
 ">" return GT;
 "!=" return NEQ;
-"+" return ADD;
-"-" return SUB;
-"*" return MUL;
-"/" return DIV;
-"%" return MOD;
-{digit}+ return NUM;
+"+" { yylval = '+'; return ADD; }
+"-" { yylval = '-'; return SUB; }
+"*" { yylval = '*'; return MUL; }
+"/" { yylval = '/'; return DIV; }
+"%" { yylval = '%'; return MOD; }
+{digit}+ { yylval = atoi(yytext); return NUM; }
 {alpha}+ return ID;
 #.* ;
 \/\*(.*\n)*.*\*\/ ;
