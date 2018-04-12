@@ -2,17 +2,26 @@
     #include <stdio.h>
     #include <stdlib.h>
     #include <string.h>
+    #include "symtable.h"
 
     extern FILE *fp;
 %}
 
+%union {
+    int ivalue;
+    char *string;
+    char op;
+}
+
 %token INT FLOAT VOID
 %token CONTINUE BREAK
-%token ID NUM INPUT PRINT
+%token INPUT PRINT
+%token <ivalue> NUM
+%token <string> ID
 %token RETURN FOR WHILE
 %token EQ LEQ GEQ GT LT NEQ
-%left ADD SUB
-%token MUL DIV MOD
+%left <op> ADD SUB
+%token <op> MUL DIV MOD
 %token DEF MAIN
 %token IF
 %token ELSE
@@ -39,7 +48,6 @@ function_param: data_type ID
     ;
 
 data_type: INT
-    | FLOAT
     | VOID
     ;
 
@@ -84,7 +92,12 @@ skip_stmt: CONTINUE
     ;
 
 assignment_stmt: ID '=' ID
-    | ID '=' NUM
+    | ID '=' NUM {
+            if (get($1) == 0)
+                insert($1, 0, $3, NULL);
+            else
+                update($1, $3, NULL);
+        }
     ;
 
 decl_stmt: data_type ID temp_assignment
@@ -102,17 +115,17 @@ temp_assignment: '=' arithmectic_expression
     ;
 
 condition_stmt: IF '(' condition_expr ')' '{' block '}' elif_stmt else_stmt
-       ;
+    ;
 
 elif_stmt: ELSE_IF '(' condition_expr ')' '{' block '}' else_stmt
     |
    ;
 
 else_stmt: ELSE '{' block '}'
-     |
-     ;
+    |
+    ;
 
-condition_expr: condition_expr AND condition_expr      //brackets necessary
+condition_expr: condition_expr AND condition_expr
    | condition_expr OR condition_expr
    | NOT condition_expr
    | TRUE
@@ -122,50 +135,18 @@ condition_expr: condition_expr AND condition_expr      //brackets necessary
    ;
 
 comparison_statement: ID conditional_operator ID
-       | ID conditional_operator arithmectic_expression
-       ;
+    | ID conditional_operator arithmectic_expression
+    ;
 
 conditional_operator: EQ
-              | LEQ
-              | GEQ
-              | NEQ
-              | LT
-              | GT
-              ;
+    | LEQ
+    | GEQ
+    | NEQ
+    | LT
+    | GT
+    ;
 
-arithmectic_expression: arithmectic_expression operator arithmectic_expression {
-    if ($2 == '+') {
-        printf("Addition operation received \n");
-        $$ = $1 + $3;
-        printf("Value: %d \n", (int)$$);
-    } else if ($2 == '-') {
-        printf("Subtraction received \n");
-        $$ = $1 - $3;
-        printf("Value: %d \n", (int)$$);
-    } else if ($2 == '*') {
-        printf("Mulitplication received \n");
-        $$ = $1 * $3;
-        printf("Value: %d \n", (int)$$);
-    } else if ($2 == '/') {
-        printf("Division received \n");
-        if ((int)$3 == 0) {
-            yyerror("Divide by zero, Invalid operation \n");
-        } else {
-            $$ = $1 / $3;
-            printf("Value: %d \n", (int)$$);
-        }
-    } else if ($2 == '%') {
-        printf("Mod received \n");
-        if ((int)$3 == 0) {
-            yyerror("Divide by zero, Invalid operation \n");
-        } else {
-            $$ = $1 % $3;
-            printf("Value: %d \n", (int)$$);
-        }
-    } else {
-        yyerror("Invalid operator specified \n");
-    }
-}
+arithmectic_expression: arithmectic_expression operator arithmectic_expression
     | ID
     | NUM
     | '('arithmectic_expression')'

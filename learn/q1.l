@@ -1,6 +1,12 @@
 alpha [a-zA-Z]
 digit [0-9]
 
+%{
+  #include <stdio.h>
+  #include <stdlib.h>
+  #include "symtable.h"
+%}
+
 %%
 [ \t] ;
 def return DEF;
@@ -28,13 +34,13 @@ elif return ELSE_IF;
 "<" return LT;
 ">" return GT;
 "!=" return NEQ;
-"+" { yylval = '+'; return ADD; }
-"-" { yylval = '-'; return SUB; }
-"*" { yylval = '*'; return MUL; }
-"/" { yylval = '/'; return DIV; }
-"%" { yylval = '%'; return MOD; }
-{digit}+ { yylval = atoi(yytext); return NUM; }
-{alpha}+ return ID;
+"+" { yylval.op = '+'; return ADD; }
+"-" { yylval.op = '-'; return SUB; }
+"*" { yylval.op = '*'; return MUL; }
+"/" { yylval.op = '/'; return DIV; }
+"%" { yylval.op = '%'; return MOD; }
+{digit}+ { yylval.ivalue = atoi(yytext); return NUM; }
+{alpha}+ { yylval.string = strdup(yytext); return ID; }
 #.* ;
 \/\*(.*\n)*.*\*\/ ;
 [ \n] { yylineno = yylineno + 1;};
