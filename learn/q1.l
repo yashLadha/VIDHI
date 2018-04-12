@@ -25,15 +25,14 @@ for return FOR;
 if return IF;
 else return ELSE;
 elif return ELSE_IF;
-"&&" return AND;
-"||" return OR;
-"!" return NOT;
-"==" return EQ;
-"<=" return LEQ;
-">=" return GEQ;
-"<" return LT;
-">" return GT;
-"!=" return NEQ;
+"&&" { yylval.string = "&&"; return AND; }
+"||" { yylval.string = "||"; return OR; }
+"==" { yylval.string = "=="; return EQ; }
+"<=" { yylval.string = "<="; return LEQ; }
+">=" { yylval.string = ">="; return GEQ; }
+"<" { yylval.string = "<"; return LT; }
+">" { yylval.string = ">"; return GT; }
+"!=" { yylval.string = "!="; return NEQ; }
 "+" { yylval.op = '+'; return ADD; }
 "-" { yylval.op = '-'; return SUB; }
 "*" { yylval.op = '*'; return MUL; }
@@ -43,6 +42,6 @@ elif return ELSE_IF;
 {alpha}+ { yylval.string = strdup(yytext); return ID; }
 #.* ;
 \/\*(.*\n)*.*\*\/ ;
-[ \n] { yylineno = yylineno + 1;};
+[ \n] { yylineno = yylineno + 1; };
 . return yytext[0];
 %%

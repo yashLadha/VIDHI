@@ -360,8 +360,8 @@ static void yynoreturn yy_fatal_error (yyconst char* msg  );
 	*yy_cp = '\0'; \
 	(yy_c_buf_p) = yy_cp;
 
-#define YY_NUM_RULES 38
-#define YY_END_OF_BUFFER 39
+#define YY_NUM_RULES 37
+#define YY_END_OF_BUFFER 38
 /* This struct is not used in this scanner,
    but its presence is necessary. */
 struct yy_trans_info
@@ -371,16 +371,16 @@ struct yy_trans_info
 	};
 static yyconst flex_int16_t yy_accept[100] =
     {   0,
-        0,    0,   39,   37,    1,   36,    1,   20,   34,   31,
-       37,   29,   27,   28,   30,   32,   24,   37,   25,   33,
-       33,   33,   33,   33,   33,   33,   33,   33,   33,   33,
-       33,   37,   26,   34,   18,    0,   32,   22,   21,   23,
-       33,   33,   33,   33,   33,   33,   33,   33,   15,   33,
-       33,   33,   33,   33,   33,   19,    0,    0,    0,   33,
-       33,    2,   33,   33,   33,   33,   14,   33,    4,   33,
-       33,   33,   33,   33,   35,   33,   33,   17,   16,   33,
-       33,   33,    3,   33,   33,   12,    6,    8,   33,   13,
-        5,   10,   11,   33,   33,    9,   33,    7,    0
+        0,    0,   38,   36,    1,   35,    1,   36,   33,   30,
+       36,   28,   26,   27,   29,   31,   23,   36,   24,   32,
+       32,   32,   32,   32,   32,   32,   32,   32,   32,   32,
+       32,   36,   25,   33,   18,    0,   31,   21,   20,   22,
+       32,   32,   32,   32,   32,   32,   32,   32,   15,   32,
+       32,   32,   32,   32,   32,   19,    0,    0,    0,   32,
+       32,    2,   32,   32,   32,   32,   14,   32,    4,   32,
+       32,   32,   32,   32,   34,   32,   32,   17,   16,   32,
+       32,   32,    3,   32,   32,   12,    6,    8,   32,   13,
+        5,   10,   11,   32,   32,    9,   32,    7,    0
 
     } ;
 
@@ -882,84 +882,85 @@ return ELSE_IF;
 case 18:
 YY_RULE_SETUP
 #line 28 "q1.l"
-return AND;
+{ yylval.string = "&&"; return AND; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
 #line 29 "q1.l"
-return OR;
+{ yylval.string = "||"; return OR; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
 #line 30 "q1.l"
-return NOT;
+{ yylval.string = "=="; return EQ; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
 #line 31 "q1.l"
-return EQ;
+{ yylval.string = "<="; return LEQ; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
 #line 32 "q1.l"
-return LEQ;
+{ yylval.string = ">="; return GEQ; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
 #line 33 "q1.l"
-return GEQ;
+{ yylval.string = "<"; return LT; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
 #line 34 "q1.l"
-return LT;
+{ yylval.string = ">"; return GT; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
 #line 35 "q1.l"
-return GT;
+{ yylval.string = "!="; return NEQ; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
 #line 36 "q1.l"
-return NEQ;
+{ yylval.op = '+'; return ADD; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
 #line 37 "q1.l"
-{ yylval.op = '+'; return ADD; }
+{ yylval.op = '-'; return SUB; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
 #line 38 "q1.l"
-{ yylval.op = '-'; return SUB; }
+{ yylval.op = '*'; return MUL; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
 #line 39 "q1.l"
-{ yylval.op = '*'; return MUL; }
+{ yylval.op = '/'; return DIV; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
 #line 40 "q1.l"
-{ yylval.op = '/'; return DIV; }
+{ yylval.op = '%'; return MOD; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
 #line 41 "q1.l"
-{ yylval.op = '%'; return MOD; }
+{ yylval.ivalue = atoi(yytext); return NUM; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
 #line 42 "q1.l"
-{ yylval.ivalue = atoi(yytext); return NUM; }
+{ yylval.string = strdup(yytext); return ID; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
 #line 43 "q1.l"
-{ yylval.string = strdup(yytext); return ID; }
+;
 	YY_BREAK
 case 34:
+/* rule 34 can match eol */
 YY_RULE_SETUP
 #line 44 "q1.l"
 ;
@@ -968,25 +969,19 @@ case 35:
 /* rule 35 can match eol */
 YY_RULE_SETUP
 #line 45 "q1.l"
-;
+{ yylineno = yylineno + 1; };
 	YY_BREAK
 case 36:
-/* rule 36 can match eol */
 YY_RULE_SETUP
 #line 46 "q1.l"
-{ yylineno = yylineno + 1;};
+return yytext[0];
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
 #line 47 "q1.l"
-return yytext[0];
-	YY_BREAK
-case 38:
-YY_RULE_SETUP
-#line 48 "q1.l"
 ECHO;
 	YY_BREAK
-#line 990 "lex.yy.c"
+#line 985 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1987,6 +1982,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 48 "q1.l"
+#line 47 "q1.l"
 
 

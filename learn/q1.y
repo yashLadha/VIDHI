@@ -19,7 +19,7 @@
 %token <ivalue> NUM
 %token <string> ID
 %token RETURN FOR WHILE
-%token EQ LEQ GEQ GT LT NEQ
+%token <string> EQ LEQ GEQ GT LT NEQ
 %left <op> ADD SUB
 %token <op> MUL DIV MOD
 %token DEF MAIN
@@ -28,12 +28,12 @@
 %token ELSE_IF
 %token AND
 %token OR
-%token NOT
 %token TRUE
 %token FALSE
 
-%type <ivalue> arithmectic_expression
+%type <ivalue> arithmectic_expression comparison_statement condition_expr
 %type <op> operator
+%type <string> conditional_operator
 
 %%
 start: DEF MAIN '(' param ')' ':' data_type '=' '{'block'}'
@@ -139,25 +139,115 @@ else_stmt: ELSE '{' block '}'
     |
     ;
 
-condition_expr: condition_expr AND condition_expr
-   | condition_expr OR condition_expr
-   | NOT condition_expr
-   | TRUE
-   | FALSE
-   | comparison_statement
-   | '(' condition_expr ')'
+condition_expr: condition_expr AND condition_expr {
+    if ($1 == 1 && $3 == 1) {
+        $$ = 1;
+    } else {
+        $$ = 0;
+    }
+}
+   | condition_expr OR condition_expr {
+       if ($1 == 1 || $3 == 1) {
+           $$ = 1;
+       } else {
+           $$ = 0;
+       }
+   }
+   | TRUE { $$ = 1; }
+   | FALSE { $$ = 0; }
+   | comparison_statement { $$ = $1; }
+   | '(' condition_expr ')' { $$ = $2; }
    ;
 
-comparison_statement: ID conditional_operator ID
-    | ID conditional_operator arithmectic_expression
+comparison_statement: ID conditional_operator ID {
+        if (strcmp($2, "==") == 0) {
+            if (get($1)->int_val == get($3)->int_val) {
+                $$ = 1;
+            } else {
+                $$ = 0;
+            }
+        } else if (strcmp($2, ">") == 0) {
+            if (get($1)->int_val > get($3)->int_val){
+                $$ = 1;
+            } else {
+                $$ = 0;
+            }
+        } else if (strcmp($2, "<") == 0) {
+            if (get($1)->int_val < get($3)->int_val){
+                $$ = 1;
+            } else {
+                $$ = 0;
+            }
+        } else if (strcmp($2, ">=") == 0) {
+            if (get($1)->int_val >= get($3)->int_val) {
+                $$ = 1;
+            } else {
+                $$ = 0;
+            }
+        } else if (strcmp($2, "<=") == 0) {
+            if (get($1)->int_val <= get($3)->int_val) {
+                $$ = 1;
+            } else {
+                $$ = 0;
+            }
+        } else if (strcmp($2, "!=") == 0) {
+            if (get($1)->int_val != get($3)->int_val) {
+                $$ = 1;
+            } else {
+                $$ = 0;
+            }
+        }
+    }
+    | ID conditional_operator arithmectic_expression {
+        if (get($1)->sym_type != 0) {
+            yyerror("Incompatible data types");
+        }
+        if (strcmp($2, "==") == 0) {
+            if (get($1)->int_val == $3) {
+                $$ = 1;
+            } else {
+                $$ = 0;
+            }
+        } else if (strcmp($2, ">") == 0) {
+            if (get($1)->int_val > $3) {
+                $$ = 1;
+            } else {
+                $$ = 0;
+            }
+        } else if (strcmp($2, "<") == 0) {
+            if (get($1)->int_val < $3) {
+                $$ = 1;
+            } else {
+                $$ = 0;
+            }
+        } else if (strcmp($2, ">=") == 0) {
+            if (get($1)->int_val >= $3) {
+                $$ = 1;
+            } else {
+                $$ = 0;
+            }
+        } else if (strcmp($2, "<=") == 0) {
+            if (get($1)->int_val <= $3) {
+                $$ = 1;
+            } else {
+                $$ = 0;
+            }
+        } else if (strcmp($2, "!=") == 0) {
+            if (get($1)->int_val != $3) {
+                $$ = 1;
+            } else {
+                $$ = 0;
+            }
+        }
+    }
     ;
 
-conditional_operator: EQ
-    | LEQ
-    | GEQ
-    | NEQ
-    | LT
-    | GT
+conditional_operator: EQ { $$ = $1; }
+    | LEQ { $$ = $1; }
+    | GEQ { $$ = $1; }
+    | NEQ { $$ = $1; }
+    | LT { $$ = $1; }
+    | GT { $$ = $1; }
     ;
 
 arithmectic_expression: arithmectic_expression operator arithmectic_expression {
