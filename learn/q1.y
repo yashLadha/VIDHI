@@ -32,6 +32,9 @@
 %token TRUE
 %token FALSE
 
+%type <ivalue> arithmectic_expression
+%type <op> operator
+
 %%
 start: DEF MAIN '(' param ')' ':' data_type '=' '{'block'}'
     | function start
@@ -78,12 +81,28 @@ expr_stmt: return_stmt
     | condition_stmt
     ;
 
-output_stmt: PRINT'(' ID ')'
+output_stmt: PRINT'(' ID ')' {
+    symtable *node = (symtable *)get($3);
+    if (node != 0) {
+        if (node->sym_type == 0) {
+            printf("%d\n", node->int_val);
+        } else if (node->sym_type == 1) {
+            printf("%s\n", node->char_val);
+        }
+    } else {
+        yyerror("No variable exists");
+    }
+}
     | PRINT '(' NUM ')'              //printing value of identifier
     ;
 
-arithmetic_stmt: ID '=' arithmectic_expression
-    ;
+arithmetic_stmt: ID '=' arithmectic_expression {
+    if (get($1) == 0) {
+        yyerror("Variable undefined");
+    } else {
+        update($1, $3, NULL);
+    }
+} ;
 
 break_stmt: BREAK
     ;
@@ -100,18 +119,13 @@ assignment_stmt: ID '=' ID
         }
     ;
 
-decl_stmt: data_type ID temp_assignment
-    | data_type ID temp_assignment',' identifiers
-    ;
+decl_stmt: data_type identifiers ;
 
-identifiers: ID temp_assignment ',' identifiers
-    | ID temp_assignment
-    ;
-
-temp_assignment: '=' arithmectic_expression
-    | '=' ID
-    | '=' NUM
-    |
+identifiers: identifiers ',' identifiers
+    | ID '=' arithmectic_expression
+    | ID '=' ID
+    | ID '=' NUM
+    | ID
     ;
 
 condition_stmt: IF '(' condition_expr ')' '{' block '}' elif_stmt else_stmt
@@ -146,17 +160,37 @@ conditional_operator: EQ
     | GT
     ;
 
-arithmectic_expression: arithmectic_expression operator arithmectic_expression
-    | ID
-    | NUM
-    | '('arithmectic_expression')'
+arithmectic_expression: arithmectic_expression operator arithmectic_expression {
+    if ($2 == '+') {
+        $$ = $1 + $3;
+    } else if ($2 == '-') {
+        $$ = $1 - $3;
+    } else if ($2 == '*') {
+        $$ = $1 * $3;
+    } else if ($2 == '/') {
+        if ($3 == 0) {
+            yyerror("Divide by zero not allowed");
+        } else {
+            $$ = $1 / $3;
+        }
+    } else if ($2 == '%') {
+        if ($3 == 0) {
+            yyerror("Divide by zero not allowed");
+        } else {
+            $$ = $1 % $3;
+        }
+    }
+}
+    | ID { $$ = get($1)->int_val; }
+    | NUM { $$ = $1; }
+    | '('arithmectic_expression')' { $$ = $2; }
     ;
 
-operator: ADD
-    | MUL
-    | SUB
-    | DIV
-    | MOD
+operator: ADD { $$ = $1; }
+    | MUL { $$ = $1; }
+    | SUB { $$ = $1; }
+    | DIV { $$ = $1; }
+    | MOD { $$ = $1; }
     ;
 
 function_call_stmt: ID '(' param ')'
