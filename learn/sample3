@@ -1,0 +1,8 @@
+def main(): int = {
+    float m
+    m = 10.2
+
+    float d
+    d = m * 4
+    print(d)
+}

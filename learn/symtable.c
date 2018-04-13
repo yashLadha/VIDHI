@@ -65,7 +65,10 @@ symtable* insert_decl(char *type, char *list) {
             } else if (list[idx] >= 'A' && list[idx] <= 'Z') {
                 temp_str = append(temp_str, list[idx]);
             } else if (list[idx] == ',') {
-                insert(temp_str, INT_TYPE, 0, 0.0, "");
+                if (get(temp_str) == 0)
+                    insert(temp_str, INT_TYPE, 0, 0.0, "");
+                else
+                    return 0;
                 strcpy(temp_str, "");
             }
         }

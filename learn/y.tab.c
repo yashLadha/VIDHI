@@ -511,11 +511,11 @@ static const yytype_uint16 yyrline[] =
       60,    61,    64,    65,    68,    69,    70,    71,    74,    75,
       78,    79,    80,    81,    82,    83,    84,    85,    86,    87,
       88,    91,   105,   108,   113,   126,   129,   132,   141,   147,
-     154,   163,   165,   170,   173,   176,   177,   180,   181,   184,
-     191,   198,   199,   200,   201,   204,   243,   287,   288,   289,
-     290,   291,   292,   295,   316,   326,   327,   328,   331,   332,
-     333,   334,   335,   338,   341,   344,   347,   348,   349,   352,
-     353,   356,   357
+     154,   163,   170,   175,   178,   181,   182,   185,   186,   189,
+     196,   203,   204,   205,   206,   209,   248,   292,   293,   294,
+     295,   296,   297,   300,   321,   331,   332,   333,   336,   337,
+     338,   339,   340,   343,   346,   362,   365,   366,   367,   370,
+     371,   374,   375
 };
 #endif
 
@@ -1527,28 +1527,33 @@ yyreduce:
 
   case 41:
 #line 163 "q1.y" /* yacc.c:1646  */
-    { insert_decl((yyvsp[-1].string), (yyvsp[0].string)); }
-#line 1532 "y.tab.c" /* yacc.c:1646  */
+    {
+    symtable* val = insert_decl((yyvsp[-1].string), (yyvsp[0].string));
+    if (val == 0) {
+        yyerror("Variable already present");
+    }
+}
+#line 1537 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 42:
-#line 165 "q1.y" /* yacc.c:1646  */
+#line 170 "q1.y" /* yacc.c:1646  */
     {
     (yyval.string) = (yyvsp[-2].string);
     strcat((yyval.string), ",");
     strcat((yyval.string), (yyvsp[0].string));
 }
-#line 1542 "y.tab.c" /* yacc.c:1646  */
+#line 1547 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 43:
-#line 170 "q1.y" /* yacc.c:1646  */
+#line 175 "q1.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
-#line 1548 "y.tab.c" /* yacc.c:1646  */
+#line 1553 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 184 "q1.y" /* yacc.c:1646  */
+#line 189 "q1.y" /* yacc.c:1646  */
     {
     if ((yyvsp[-2].ivalue) == 1 && (yyvsp[0].ivalue) == 1) {
         (yyval.ivalue) = 1;
@@ -1556,11 +1561,11 @@ yyreduce:
         (yyval.ivalue) = 0;
     }
 }
-#line 1560 "y.tab.c" /* yacc.c:1646  */
+#line 1565 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 50:
-#line 191 "q1.y" /* yacc.c:1646  */
+#line 196 "q1.y" /* yacc.c:1646  */
     {
        if ((yyvsp[-2].ivalue) == 1 || (yyvsp[0].ivalue) == 1) {
            (yyval.ivalue) = 1;
@@ -1568,35 +1573,35 @@ yyreduce:
            (yyval.ivalue) = 0;
        }
    }
-#line 1572 "y.tab.c" /* yacc.c:1646  */
+#line 1577 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 51:
-#line 198 "q1.y" /* yacc.c:1646  */
+#line 203 "q1.y" /* yacc.c:1646  */
     { (yyval.ivalue) = 1; }
-#line 1578 "y.tab.c" /* yacc.c:1646  */
+#line 1583 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 199 "q1.y" /* yacc.c:1646  */
+#line 204 "q1.y" /* yacc.c:1646  */
     { (yyval.ivalue) = 0; }
-#line 1584 "y.tab.c" /* yacc.c:1646  */
+#line 1589 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 200 "q1.y" /* yacc.c:1646  */
+#line 205 "q1.y" /* yacc.c:1646  */
     { (yyval.ivalue) = (yyvsp[0].ivalue); }
-#line 1590 "y.tab.c" /* yacc.c:1646  */
+#line 1595 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 201 "q1.y" /* yacc.c:1646  */
+#line 206 "q1.y" /* yacc.c:1646  */
     { (yyval.ivalue) = (yyvsp[-1].ivalue); }
-#line 1596 "y.tab.c" /* yacc.c:1646  */
+#line 1601 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 204 "q1.y" /* yacc.c:1646  */
+#line 209 "q1.y" /* yacc.c:1646  */
     {
         if (strcmp((yyvsp[-1].string), "==") == 0) {
             if (get((yyvsp[-2].string))->int_val == get((yyvsp[0].string))->int_val) {
@@ -1636,11 +1641,11 @@ yyreduce:
             }
         }
     }
-#line 1640 "y.tab.c" /* yacc.c:1646  */
+#line 1645 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 56:
-#line 243 "q1.y" /* yacc.c:1646  */
+#line 248 "q1.y" /* yacc.c:1646  */
     {
         if (get((yyvsp[-2].string))->sym_type != 0) {
             yyerror("Incompatible data types");
@@ -1683,47 +1688,47 @@ yyreduce:
             }
         }
     }
-#line 1687 "y.tab.c" /* yacc.c:1646  */
+#line 1692 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 57:
-#line 287 "q1.y" /* yacc.c:1646  */
+#line 292 "q1.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
-#line 1693 "y.tab.c" /* yacc.c:1646  */
+#line 1698 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 288 "q1.y" /* yacc.c:1646  */
+#line 293 "q1.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
-#line 1699 "y.tab.c" /* yacc.c:1646  */
+#line 1704 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 289 "q1.y" /* yacc.c:1646  */
+#line 294 "q1.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
-#line 1705 "y.tab.c" /* yacc.c:1646  */
+#line 1710 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 290 "q1.y" /* yacc.c:1646  */
+#line 295 "q1.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
-#line 1711 "y.tab.c" /* yacc.c:1646  */
+#line 1716 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 291 "q1.y" /* yacc.c:1646  */
+#line 296 "q1.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
-#line 1717 "y.tab.c" /* yacc.c:1646  */
+#line 1722 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 292 "q1.y" /* yacc.c:1646  */
+#line 297 "q1.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
-#line 1723 "y.tab.c" /* yacc.c:1646  */
+#line 1728 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 295 "q1.y" /* yacc.c:1646  */
+#line 300 "q1.y" /* yacc.c:1646  */
     {
     if ((yyvsp[-1].op) == '+') {
         (yyval.fval) = (yyvsp[-2].fval) + (yyvsp[0].fval);
@@ -1745,11 +1750,11 @@ yyreduce:
         }
     }
 }
-#line 1749 "y.tab.c" /* yacc.c:1646  */
+#line 1754 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 64:
-#line 316 "q1.y" /* yacc.c:1646  */
+#line 321 "q1.y" /* yacc.c:1646  */
     {
         symtable *node = get((yyvsp[0].string));
         if (node == 0) {
@@ -1760,59 +1765,78 @@ yyreduce:
             (yyval.fval) = node->fl_val;
         }
     }
-#line 1764 "y.tab.c" /* yacc.c:1646  */
+#line 1769 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 65:
-#line 326 "q1.y" /* yacc.c:1646  */
+#line 331 "q1.y" /* yacc.c:1646  */
     { (yyval.fval) = (yyvsp[0].ivalue); }
-#line 1770 "y.tab.c" /* yacc.c:1646  */
+#line 1775 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 327 "q1.y" /* yacc.c:1646  */
+#line 332 "q1.y" /* yacc.c:1646  */
     { (yyval.fval) = (yyvsp[0].fval); }
-#line 1776 "y.tab.c" /* yacc.c:1646  */
+#line 1781 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 328 "q1.y" /* yacc.c:1646  */
+#line 333 "q1.y" /* yacc.c:1646  */
     { (yyval.fval) = (yyvsp[-1].fval); }
-#line 1782 "y.tab.c" /* yacc.c:1646  */
+#line 1787 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 331 "q1.y" /* yacc.c:1646  */
+#line 336 "q1.y" /* yacc.c:1646  */
     { (yyval.op) = (yyvsp[0].op); }
-#line 1788 "y.tab.c" /* yacc.c:1646  */
+#line 1793 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 332 "q1.y" /* yacc.c:1646  */
+#line 337 "q1.y" /* yacc.c:1646  */
     { (yyval.op) = (yyvsp[0].op); }
-#line 1794 "y.tab.c" /* yacc.c:1646  */
+#line 1799 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 333 "q1.y" /* yacc.c:1646  */
+#line 338 "q1.y" /* yacc.c:1646  */
     { (yyval.op) = (yyvsp[0].op); }
-#line 1800 "y.tab.c" /* yacc.c:1646  */
+#line 1805 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 334 "q1.y" /* yacc.c:1646  */
+#line 339 "q1.y" /* yacc.c:1646  */
     { (yyval.op) = (yyvsp[0].op); }
-#line 1806 "y.tab.c" /* yacc.c:1646  */
+#line 1811 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 335 "q1.y" /* yacc.c:1646  */
+#line 340 "q1.y" /* yacc.c:1646  */
     { (yyval.op) = (yyvsp[0].op); }
-#line 1812 "y.tab.c" /* yacc.c:1646  */
+#line 1817 "y.tab.c" /* yacc.c:1646  */
+    break;
+
+  case 74:
+#line 346 "q1.y" /* yacc.c:1646  */
+    {
+    symtable *node = get((yyvsp[-1].string));
+    if (node == 0) {
+        yyerror("Variable undefined");
+    } else {
+        if (node->sym_type == 0) {
+            scanf("%d", &node->int_val);
+        } else if (node->sym_type == 1) {
+            fgets(node->char_val, 100, stdin);
+        } else if (node->sym_type == 2) {
+            scanf("%f", &node->fl_val);
+        }
+    }
+}
+#line 1836 "y.tab.c" /* yacc.c:1646  */
     break;
 
 
-#line 1816 "y.tab.c" /* yacc.c:1646  */
+#line 1840 "y.tab.c" /* yacc.c:1646  */
       default: break;
     }
   /* User semantic actions sometimes alter yychar, and that requires
@@ -2040,7 +2064,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 360 "q1.y" /* yacc.c:1906  */
+#line 378 "q1.y" /* yacc.c:1906  */
 
 #include "lex.yy.c"
 #include <ctype.h>

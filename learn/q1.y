@@ -160,7 +160,12 @@ assignment_stmt: ID '=' ID {
     }
     ;
 
-decl_stmt: data_type identifiers { insert_decl($1, $2); }
+decl_stmt: data_type identifiers {
+    symtable* val = insert_decl($1, $2);
+    if (val == 0) {
+        yyerror("Variable already present");
+    }
+}
 
 identifiers: identifiers ',' identifiers {
     $$ = $1;
@@ -338,7 +343,20 @@ operator: ADD { $$ = $1; }
 function_call_stmt: ID '(' param ')'
     ;
 
-input_stmt: INPUT'('ID')'
+input_stmt: INPUT'('ID')' {
+    symtable *node = get($3);
+    if (node == 0) {
+        yyerror("Variable undefined");
+    } else {
+        if (node->sym_type == 0) {
+            scanf("%d", &node->int_val);
+        } else if (node->sym_type == 1) {
+            fgets(node->char_val, 100, stdin);
+        } else if (node->sym_type == 2) {
+            scanf("%f", &node->fl_val);
+        }
+    }
+}
     ;
 
 loop_stmt: FOR '('initialize_loop';' loop_invariant ';' loop_increment ')' '{' block '}'  //empty parameters
