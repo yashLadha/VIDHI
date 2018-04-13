@@ -1,7 +1,3 @@
-# ge
-/*
-Hey Test Multi Comment
-*/
 def main(): int = {
     int a, b, c
     input(a)

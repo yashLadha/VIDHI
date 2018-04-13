@@ -1,0 +1,6 @@
+def main(): int = {
+    int a, b, c
+    input(a)
+    input(b)
+    c = a+b
+}
