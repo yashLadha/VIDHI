@@ -14,6 +14,7 @@ main return MAIN;
 int { yylval.string = "int"; return INT; }
 float { yylval.string = "float"; return FLOAT; }
 void { yylval.string = "void"; return VOID; }
+char { yylval.string = "char"; return CHAR; }
 continue return CONTINUE;
 break return BREAK;
 return return RETURN;
@@ -39,6 +40,7 @@ elif return ELSE_IF;
 "/" { yylval.op = '/'; return DIV; }
 "%" { yylval.op = '%'; return MOD; }
 {digit}+ { yylval.ivalue = atoi(yytext); return NUM; }
+{digit}+[.]{digit}+ { yylval.fval = atof(yytext); return FDEC; }
 {alpha}+ { yylval.string = strdup(yytext); return ID; }
 \".*\" { yylval.string = strdup(yytext); return STRING; }
 #.* ;

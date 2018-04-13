@@ -3,10 +3,13 @@
 Hey Test Multi Comment
 */
 def main(): int = {
-    int a, b, c
+    int a, b
+    int c
     a = 10
     b = 20
     c = a + b
-    print("Bhokali")
+    float d
+    d = c * 1.0
     print(c)
+    print(d)
 }

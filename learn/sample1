@@ -1,0 +1,10 @@
+def main(): int = {
+    int a, b
+    char c
+    c = "Hello World"
+    print(c)
+
+    a =  10
+    b = 20 + a
+    print(b)
+}

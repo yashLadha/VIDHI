@@ -11,13 +11,15 @@
     int ivalue;
     char *string;
     char op;
+    float fval;
 }
 
-%token <string> INT FLOAT VOID
+%token <string> INT FLOAT VOID CHAR
 %token CONTINUE BREAK
 %token INPUT PRINT
 %token <ivalue> NUM
 %token <string> ID
+%token <fval> FDEC
 %token RETURN FOR WHILE
 %token <string> EQ LEQ GEQ GT LT NEQ
 %left <op> ADD SUB
@@ -32,7 +34,9 @@
 %token <string> STRING
 %token FALSE
 
-%type <ivalue> arithmectic_expression comparison_statement condition_expr
+// %type <ivalue> arithmectic_expression
+%type <fval> arithmectic_expression
+%type <ivalue> comparison_statement condition_expr
 %type <op> operator
 %type <string> conditional_operator identifiers data_type
 
@@ -53,6 +57,8 @@ function_param: data_type ID
 
 data_type: INT { $$ = $1; }
     | VOID { $$ = $1; }
+    | CHAR { $$ = $1; }
+    | FLOAT { $$ = $1; }
     ;
 
 block: expressions
@@ -89,6 +95,8 @@ output_stmt: PRINT'(' ID ')' {
             printf("%d\n", node->int_val);
         } else if (node->sym_type == 1) {
             printf("%s\n", node->char_val);
+        } else if (node->sym_type == 2) {
+            printf("%f\n", node->fl_val);
         }
     } else {
         yyerror("No variable exists");
@@ -106,7 +114,12 @@ arithmetic_stmt: ID '=' arithmectic_expression {
     if (get($1) == 0) {
         yyerror("Variable undefined");
     } else {
-        update($1, $3, NULL);
+        symtable *node = get($1);
+        if (node->sym_type == 0) {
+            update($1, $3, 0.0, NULL);
+        } else if (node->sym_type == 2) {
+            update($1, 0, $3, NULL);
+        }
     }
 } ;
 
@@ -127,10 +140,24 @@ assignment_stmt: ID '=' ID {
 }
     | ID '=' NUM {
             if (get($1) == 0)
-                insert($1, 0, $3, NULL);
+                yyerror("Undefined variable");
             else
-                update($1, $3, NULL);
+                update($1, $3, 0.0, NULL);
         }
+    | ID '=' STRING {
+        if (get($1) == 0) {
+            yyerror("Undefined variable");
+        } else {
+            update($1, 0, 0.0, $3);
+        }
+    }
+    | ID '=' FDEC {
+        if (get($1) == 0) {
+            yyerror("Undefined variable");
+        } else {
+            update($1, 0, $3, NULL);
+        }
+    }
     ;
 
 decl_stmt: data_type identifiers { insert_decl($1, $2); }
@@ -282,12 +309,22 @@ arithmectic_expression: arithmectic_expression operator arithmectic_expression {
         if ($3 == 0) {
             yyerror("Divide by zero not allowed");
         } else {
-            $$ = $1 % $3;
+            $$ = (int)$1 % (int)$3;
         }
     }
 }
-    | ID { $$ = get($1)->int_val; }
+    | ID {
+        symtable *node = get($1);
+        if (node == 0) {
+            yyerror("Undefined variable");
+        } else if (node->sym_type == 0) {
+            $$ = node->int_val;
+        } else if (node->sym_type == 2) {
+            $$ = node->fl_val;
+        }
+    }
     | NUM { $$ = $1; }
+    | FDEC { $$ = $1; }
     | '('arithmectic_expression')' { $$ = $2; }
     ;
 
