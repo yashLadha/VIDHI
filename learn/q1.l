@@ -11,9 +11,9 @@ digit [0-9]
 [ \t] ;
 def return DEF;
 main return MAIN;
-int return INT;
-float return FLOAT;
-void return VOID;
+int { yylval.string = "int"; return INT; }
+float { yylval.string = "float"; return FLOAT; }
+void { yylval.string = "void"; return VOID; }
 continue return CONTINUE;
 break return BREAK;
 return return RETURN;
@@ -40,6 +40,7 @@ elif return ELSE_IF;
 "%" { yylval.op = '%'; return MOD; }
 {digit}+ { yylval.ivalue = atoi(yytext); return NUM; }
 {alpha}+ { yylval.string = strdup(yytext); return ID; }
+\".*\" { yylval.string = strdup(yytext); return STRING; }
 #.* ;
 \/\*(.*\n)*.*\*\/ ;
 [ \n] { yylineno = yylineno + 1; };

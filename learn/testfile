@@ -1,25 +1,12 @@
-def check(): int = {
-    int a
-}
-
-def lest() : int = {
-    check()
-    return 2+6
-}
 # ge
 /*
 Hey Test Multi Comment
 */
 def main(): int = {
-    int a = 10, b, c
-    int b
-    c = 0
-    b = 7
-    a = 2
-    a = 2 + 3
+    int a, b, c
+    a = 10
+    b = 20
     c = a + b
-    if (a < c) {
-    }
-    print(a)
+    print("Bhokali")
     print(c)
 }

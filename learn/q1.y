@@ -13,7 +13,7 @@
     char op;
 }
 
-%token INT FLOAT VOID
+%token <string> INT FLOAT VOID
 %token CONTINUE BREAK
 %token INPUT PRINT
 %token <ivalue> NUM
@@ -29,11 +29,12 @@
 %token AND
 %token OR
 %token TRUE
+%token <string> STRING
 %token FALSE
 
 %type <ivalue> arithmectic_expression comparison_statement condition_expr
 %type <op> operator
-%type <string> conditional_operator
+%type <string> conditional_operator identifiers data_type
 
 %%
 start: DEF MAIN '(' param ')' ':' data_type '=' '{'block'}'
@@ -50,8 +51,8 @@ param: function_param
 function_param: data_type ID
     ;
 
-data_type: INT
-    | VOID
+data_type: INT { $$ = $1; }
+    | VOID { $$ = $1; }
     ;
 
 block: expressions
@@ -93,7 +94,12 @@ output_stmt: PRINT'(' ID ')' {
         yyerror("No variable exists");
     }
 }
-    | PRINT '(' NUM ')'              //printing value of identifier
+    | PRINT '(' NUM ')' {
+        printf("%d\n", $3);
+    }
+    | PRINT '(' STRING ')' {
+        printf("%s\n", $3);
+    }
     ;
 
 arithmetic_stmt: ID '=' arithmectic_expression {
@@ -110,7 +116,15 @@ break_stmt: BREAK
 skip_stmt: CONTINUE
     ;
 
-assignment_stmt: ID '=' ID
+assignment_stmt: ID '=' ID {
+    if (get($1) == 0 || get($3) == 0) {
+        yyerror("Variable undefined");
+    } else if (get($1)->sym_type != get($3)->sym_type) {
+        yyerror("Mismatch types");
+    } else {
+        change_val(get($1), get($3));
+    }
+}
     | ID '=' NUM {
             if (get($1) == 0)
                 insert($1, 0, $3, NULL);
@@ -119,13 +133,14 @@ assignment_stmt: ID '=' ID
         }
     ;
 
-decl_stmt: data_type identifiers ;
+decl_stmt: data_type identifiers { insert_decl($1, $2); }
 
-identifiers: identifiers ',' identifiers
-    | ID '=' arithmectic_expression
-    | ID '=' ID
-    | ID '=' NUM
-    | ID
+identifiers: identifiers ',' identifiers {
+    $$ = $1;
+    strcat($$, ",");
+    strcat($$, $3);
+}
+    | ID { $$ = $1; }
     ;
 
 condition_stmt: IF '(' condition_expr ')' '{' block '}' elif_stmt else_stmt
@@ -310,8 +325,8 @@ loop_increment: ID '=' arithmectic_expression
 #include <ctype.h>
 
 int yyerror(char *s) {
-    fprintf(stderr, "Error: %s / %s / %d\n", s, yytext, yylineno);
-    return 0;
+    fprintf(stderr, "Error: %s / %s / %d\n", s, yytext, yylineno+1);
+    exit(1);
 }
 
 int main(int argc, char **argv) {
