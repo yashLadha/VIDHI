@@ -62,7 +62,7 @@
 
 
 /* Copy the first part of user declarations.  */
-#line 1 "q1.y" /* yacc.c:339  */
+#line 1 "vidhi.y" /* yacc.c:339  */
 
     #include <stdio.h>
     #include <stdlib.h>
@@ -182,7 +182,7 @@ extern int yydebug;
 
 union YYSTYPE
 {
-#line 10 "q1.y" /* yacc.c:355  */
+#line 10 "vidhi.y" /* yacc.c:355  */
 
     int ivalue;
     char *string;
@@ -1401,31 +1401,31 @@ yyreduce:
   switch (yyn)
     {
         case 8:
-#line 58 "q1.y" /* yacc.c:1646  */
+#line 58 "vidhi.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
 #line 1407 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 9:
-#line 59 "q1.y" /* yacc.c:1646  */
+#line 59 "vidhi.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
 #line 1413 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 10:
-#line 60 "q1.y" /* yacc.c:1646  */
+#line 60 "vidhi.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
 #line 1419 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 11:
-#line 61 "q1.y" /* yacc.c:1646  */
+#line 61 "vidhi.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
 #line 1425 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 31:
-#line 91 "q1.y" /* yacc.c:1646  */
+#line 91 "vidhi.y" /* yacc.c:1646  */
     {
     symtable *node = (symtable *)get((yyvsp[-1].string));
     if (node != 0) {
@@ -1444,7 +1444,7 @@ yyreduce:
     break;
 
   case 32:
-#line 105 "q1.y" /* yacc.c:1646  */
+#line 105 "vidhi.y" /* yacc.c:1646  */
     {
         printf("%d\n", (yyvsp[-1].ivalue));
     }
@@ -1452,7 +1452,7 @@ yyreduce:
     break;
 
   case 33:
-#line 108 "q1.y" /* yacc.c:1646  */
+#line 108 "vidhi.y" /* yacc.c:1646  */
     {
         printf("%s\n", (yyvsp[-1].string));
     }
@@ -1460,7 +1460,7 @@ yyreduce:
     break;
 
   case 34:
-#line 113 "q1.y" /* yacc.c:1646  */
+#line 113 "vidhi.y" /* yacc.c:1646  */
     {
     if (get((yyvsp[-2].string)) == 0) {
         yyerror("Variable undefined");
@@ -1477,7 +1477,7 @@ yyreduce:
     break;
 
   case 37:
-#line 132 "q1.y" /* yacc.c:1646  */
+#line 132 "vidhi.y" /* yacc.c:1646  */
     {
     if (get((yyvsp[-2].string)) == 0 || get((yyvsp[0].string)) == 0) {
         yyerror("Variable undefined");
@@ -1491,7 +1491,7 @@ yyreduce:
     break;
 
   case 38:
-#line 141 "q1.y" /* yacc.c:1646  */
+#line 141 "vidhi.y" /* yacc.c:1646  */
     {
             if (get((yyvsp[-2].string)) == 0)
                 yyerror("Undefined variable");
@@ -1502,7 +1502,7 @@ yyreduce:
     break;
 
   case 39:
-#line 147 "q1.y" /* yacc.c:1646  */
+#line 147 "vidhi.y" /* yacc.c:1646  */
     {
         if (get((yyvsp[-2].string)) == 0) {
             yyerror("Undefined variable");
@@ -1514,7 +1514,7 @@ yyreduce:
     break;
 
   case 40:
-#line 154 "q1.y" /* yacc.c:1646  */
+#line 154 "vidhi.y" /* yacc.c:1646  */
     {
         if (get((yyvsp[-2].string)) == 0) {
             yyerror("Undefined variable");
@@ -1526,7 +1526,7 @@ yyreduce:
     break;
 
   case 41:
-#line 163 "q1.y" /* yacc.c:1646  */
+#line 163 "vidhi.y" /* yacc.c:1646  */
     {
     symtable* val = insert_decl((yyvsp[-1].string), (yyvsp[0].string));
     if (val == 0) {
@@ -1537,7 +1537,7 @@ yyreduce:
     break;
 
   case 42:
-#line 170 "q1.y" /* yacc.c:1646  */
+#line 170 "vidhi.y" /* yacc.c:1646  */
     {
     (yyval.string) = (yyvsp[-2].string);
     strcat((yyval.string), ",");
@@ -1547,13 +1547,13 @@ yyreduce:
     break;
 
   case 43:
-#line 175 "q1.y" /* yacc.c:1646  */
+#line 175 "vidhi.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
 #line 1553 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 49:
-#line 189 "q1.y" /* yacc.c:1646  */
+#line 189 "vidhi.y" /* yacc.c:1646  */
     {
     if ((yyvsp[-2].ivalue) == 1 && (yyvsp[0].ivalue) == 1) {
         (yyval.ivalue) = 1;
@@ -1565,7 +1565,7 @@ yyreduce:
     break;
 
   case 50:
-#line 196 "q1.y" /* yacc.c:1646  */
+#line 196 "vidhi.y" /* yacc.c:1646  */
     {
        if ((yyvsp[-2].ivalue) == 1 || (yyvsp[0].ivalue) == 1) {
            (yyval.ivalue) = 1;
@@ -1577,31 +1577,31 @@ yyreduce:
     break;
 
   case 51:
-#line 203 "q1.y" /* yacc.c:1646  */
+#line 203 "vidhi.y" /* yacc.c:1646  */
     { (yyval.ivalue) = 1; }
 #line 1583 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 52:
-#line 204 "q1.y" /* yacc.c:1646  */
+#line 204 "vidhi.y" /* yacc.c:1646  */
     { (yyval.ivalue) = 0; }
 #line 1589 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 53:
-#line 205 "q1.y" /* yacc.c:1646  */
+#line 205 "vidhi.y" /* yacc.c:1646  */
     { (yyval.ivalue) = (yyvsp[0].ivalue); }
 #line 1595 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 54:
-#line 206 "q1.y" /* yacc.c:1646  */
+#line 206 "vidhi.y" /* yacc.c:1646  */
     { (yyval.ivalue) = (yyvsp[-1].ivalue); }
 #line 1601 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 55:
-#line 209 "q1.y" /* yacc.c:1646  */
+#line 209 "vidhi.y" /* yacc.c:1646  */
     {
         if (strcmp((yyvsp[-1].string), "==") == 0) {
             if (get((yyvsp[-2].string))->int_val == get((yyvsp[0].string))->int_val) {
@@ -1645,7 +1645,7 @@ yyreduce:
     break;
 
   case 56:
-#line 248 "q1.y" /* yacc.c:1646  */
+#line 248 "vidhi.y" /* yacc.c:1646  */
     {
         if (get((yyvsp[-2].string))->sym_type != 0) {
             yyerror("Incompatible data types");
@@ -1692,43 +1692,43 @@ yyreduce:
     break;
 
   case 57:
-#line 292 "q1.y" /* yacc.c:1646  */
+#line 292 "vidhi.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
 #line 1698 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 58:
-#line 293 "q1.y" /* yacc.c:1646  */
+#line 293 "vidhi.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
 #line 1704 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 59:
-#line 294 "q1.y" /* yacc.c:1646  */
+#line 294 "vidhi.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
 #line 1710 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 60:
-#line 295 "q1.y" /* yacc.c:1646  */
+#line 295 "vidhi.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
 #line 1716 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 61:
-#line 296 "q1.y" /* yacc.c:1646  */
+#line 296 "vidhi.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
 #line 1722 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 62:
-#line 297 "q1.y" /* yacc.c:1646  */
+#line 297 "vidhi.y" /* yacc.c:1646  */
     { (yyval.string) = (yyvsp[0].string); }
 #line 1728 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 63:
-#line 300 "q1.y" /* yacc.c:1646  */
+#line 300 "vidhi.y" /* yacc.c:1646  */
     {
     if ((yyvsp[-1].op) == '+') {
         (yyval.fval) = (yyvsp[-2].fval) + (yyvsp[0].fval);
@@ -1754,7 +1754,7 @@ yyreduce:
     break;
 
   case 64:
-#line 321 "q1.y" /* yacc.c:1646  */
+#line 321 "vidhi.y" /* yacc.c:1646  */
     {
         symtable *node = get((yyvsp[0].string));
         if (node == 0) {
@@ -1769,55 +1769,55 @@ yyreduce:
     break;
 
   case 65:
-#line 331 "q1.y" /* yacc.c:1646  */
+#line 331 "vidhi.y" /* yacc.c:1646  */
     { (yyval.fval) = (yyvsp[0].ivalue); }
 #line 1775 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 66:
-#line 332 "q1.y" /* yacc.c:1646  */
+#line 332 "vidhi.y" /* yacc.c:1646  */
     { (yyval.fval) = (yyvsp[0].fval); }
 #line 1781 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 67:
-#line 333 "q1.y" /* yacc.c:1646  */
+#line 333 "vidhi.y" /* yacc.c:1646  */
     { (yyval.fval) = (yyvsp[-1].fval); }
 #line 1787 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 68:
-#line 336 "q1.y" /* yacc.c:1646  */
+#line 336 "vidhi.y" /* yacc.c:1646  */
     { (yyval.op) = (yyvsp[0].op); }
 #line 1793 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 69:
-#line 337 "q1.y" /* yacc.c:1646  */
+#line 337 "vidhi.y" /* yacc.c:1646  */
     { (yyval.op) = (yyvsp[0].op); }
 #line 1799 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 70:
-#line 338 "q1.y" /* yacc.c:1646  */
+#line 338 "vidhi.y" /* yacc.c:1646  */
     { (yyval.op) = (yyvsp[0].op); }
 #line 1805 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 71:
-#line 339 "q1.y" /* yacc.c:1646  */
+#line 339 "vidhi.y" /* yacc.c:1646  */
     { (yyval.op) = (yyvsp[0].op); }
 #line 1811 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 72:
-#line 340 "q1.y" /* yacc.c:1646  */
+#line 340 "vidhi.y" /* yacc.c:1646  */
     { (yyval.op) = (yyvsp[0].op); }
 #line 1817 "y.tab.c" /* yacc.c:1646  */
     break;
 
   case 74:
-#line 346 "q1.y" /* yacc.c:1646  */
+#line 346 "vidhi.y" /* yacc.c:1646  */
     {
     symtable *node = get((yyvsp[-1].string));
     if (node == 0) {
@@ -2064,7 +2064,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 378 "q1.y" /* yacc.c:1906  */
+#line 378 "vidhi.y" /* yacc.c:1906  */
 
 #include "lex.yy.c"
 #include <ctype.h>

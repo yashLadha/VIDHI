@@ -517,8 +517,8 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "q1.l"
-#line 5 "q1.l"
+#line 1 "vidhi.l"
+#line 5 "vidhi.l"
   #include <stdio.h>
   #include <stdlib.h>
   #include "symtable.h"
@@ -740,7 +740,7 @@ YY_DECL
 		}
 
 	{
-#line 10 "q1.l"
+#line 10 "vidhi.l"
 
 #line 746 "lex.yy.c"
 
@@ -801,204 +801,204 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 11 "q1.l"
+#line 11 "vidhi.l"
 ;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 12 "q1.l"
+#line 12 "vidhi.l"
 return DEF;
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 13 "q1.l"
+#line 13 "vidhi.l"
 return MAIN;
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 14 "q1.l"
+#line 14 "vidhi.l"
 { yylval.string = "int"; return INT; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 15 "q1.l"
+#line 15 "vidhi.l"
 { yylval.string = "float"; return FLOAT; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 16 "q1.l"
+#line 16 "vidhi.l"
 { yylval.string = "void"; return VOID; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 17 "q1.l"
+#line 17 "vidhi.l"
 { yylval.string = "char"; return CHAR; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 18 "q1.l"
+#line 18 "vidhi.l"
 return CONTINUE;
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 19 "q1.l"
+#line 19 "vidhi.l"
 return BREAK;
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 20 "q1.l"
+#line 20 "vidhi.l"
 return RETURN;
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 21 "q1.l"
+#line 21 "vidhi.l"
 return INPUT;
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 22 "q1.l"
+#line 22 "vidhi.l"
 return PRINT;
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 23 "q1.l"
+#line 23 "vidhi.l"
 return TRUE;
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 24 "q1.l"
+#line 24 "vidhi.l"
 return FALSE;
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 25 "q1.l"
+#line 25 "vidhi.l"
 return FOR;
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 26 "q1.l"
+#line 26 "vidhi.l"
 return IF;
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 27 "q1.l"
+#line 27 "vidhi.l"
 return ELSE;
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 28 "q1.l"
+#line 28 "vidhi.l"
 return ELSE_IF;
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 29 "q1.l"
+#line 29 "vidhi.l"
 { yylval.string = "&&"; return AND; }
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 30 "q1.l"
+#line 30 "vidhi.l"
 { yylval.string = "||"; return OR; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 31 "q1.l"
+#line 31 "vidhi.l"
 { yylval.string = "=="; return EQ; }
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 32 "q1.l"
+#line 32 "vidhi.l"
 { yylval.string = "<="; return LEQ; }
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 33 "q1.l"
+#line 33 "vidhi.l"
 { yylval.string = ">="; return GEQ; }
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 34 "q1.l"
+#line 34 "vidhi.l"
 { yylval.string = "<"; return LT; }
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 35 "q1.l"
+#line 35 "vidhi.l"
 { yylval.string = ">"; return GT; }
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 36 "q1.l"
+#line 36 "vidhi.l"
 { yylval.string = "!="; return NEQ; }
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 37 "q1.l"
+#line 37 "vidhi.l"
 { yylval.op = '+'; return ADD; }
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 38 "q1.l"
+#line 38 "vidhi.l"
 { yylval.op = '-'; return SUB; }
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 39 "q1.l"
+#line 39 "vidhi.l"
 { yylval.op = '*'; return MUL; }
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 40 "q1.l"
+#line 40 "vidhi.l"
 { yylval.op = '/'; return DIV; }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 41 "q1.l"
+#line 41 "vidhi.l"
 { yylval.op = '%'; return MOD; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 42 "q1.l"
+#line 42 "vidhi.l"
 { yylval.ivalue = atoi(yytext); return NUM; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 43 "q1.l"
+#line 43 "vidhi.l"
 { yylval.fval = atof(yytext); return FDEC; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 44 "q1.l"
+#line 44 "vidhi.l"
 { yylval.string = strdup(yytext); return ID; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 45 "q1.l"
+#line 45 "vidhi.l"
 { yylval.string = strdup(yytext); return STRING; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 46 "q1.l"
+#line 46 "vidhi.l"
 ;
 	YY_BREAK
 case 37:
 /* rule 37 can match eol */
 YY_RULE_SETUP
-#line 47 "q1.l"
+#line 47 "vidhi.l"
 ;
 	YY_BREAK
 case 38:
 /* rule 38 can match eol */
 YY_RULE_SETUP
-#line 48 "q1.l"
+#line 48 "vidhi.l"
 { yylineno = yylineno + 1; };
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 49 "q1.l"
+#line 49 "vidhi.l"
 return yytext[0];
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 50 "q1.l"
+#line 50 "vidhi.l"
 ECHO;
 	YY_BREAK
 #line 1005 "lex.yy.c"
@@ -2002,6 +2002,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 50 "q1.l"
+#line 50 "vidhi.l"
 
 
