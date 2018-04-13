@@ -1,0 +1,7 @@
+def main(): int = {
+    float a, b, c
+    input(a)
+    input(b)
+    c = (a+b)*a - b*(a+b)
+    print(c)
+}

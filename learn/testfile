@@ -3,9 +3,9 @@
 Hey Test Multi Comment
 */
 def main(): int = {
-    int a, b, c
-    input(a)
+    int ab, b, c
+    input(ab)
     input(b)
-    c = (a+b)*a - b*(a+b)
+    c = (ab+b)*ab
     print(c)
 }
